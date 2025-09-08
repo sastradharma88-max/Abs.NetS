@@ -16,7 +16,7 @@ function makeResponsive() {
   if (wrapper) {
     if (width <= 768) {
       wrapper.style.display = "grid";
-      wrapper.style.gridTemplateColumns = "1fr"; // 1 kolom di HP
+      wrapper.style.gridTemplateColumns = "1fr"; // HP
       wrapper.style.rowGap = "2rem";
     } else if (width <= 1024) {
       wrapper.style.display = "grid";
@@ -41,7 +41,7 @@ function makeResponsive() {
     }
   });
 
-  // FONT SIZE (contoh)
+  // FONT SIZE
   let headings = document.querySelectorAll("h1, h2, h3");
   headings.forEach(h => {
     if (width <= 480) {
@@ -54,8 +54,26 @@ function makeResponsive() {
   });
 }
 
-// Panggil pertama kali
-makeResponsive();
+// Navbar toggle (☰)
+let menuIcon = document.querySelector('#menu-icon');
+let navbar = document.querySelector('.navbar');
 
-// Update setiap resize
+if (menuIcon && navbar) {
+  menuIcon.onclick = () => {
+    menuIcon.classList.toggle('bx-x');  // ubah icon
+    navbar.classList.toggle('active');  // munculkan navbar
+  };
+
+  // Tutup menu saat klik link
+  let navLinks = document.querySelectorAll('.navbar a');
+  navLinks.forEach(link => {
+    link.onclick = () => {
+      menuIcon.classList.remove('bx-x');
+      navbar.classList.remove('active');
+    };
+  });
+}
+
+// Jalankan pertama kali & saat resize
+makeResponsive();
 window.addEventListener("resize", makeResponsive);
